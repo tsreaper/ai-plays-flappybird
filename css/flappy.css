@@ -1,0 +1,73 @@
+h1
+{
+    text-align: center;
+    font-size: 24px;
+    margin: 5px 0;
+}
+
+h2
+{
+    text-align: center;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+h3
+{
+    text-align: center;
+    font-style: italic;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 5px 0;
+}
+
+#main-content
+{
+    width: 850px;
+    height: auto;
+    margin: 10px auto;
+}
+
+#canvas-div
+{
+    width: 336px;
+    height: 512px;
+    float: left;
+    border: 1px solid #000;
+}
+
+#control-div
+{
+    width: 500px;
+    height: 512px;
+    float: right;
+}
+
+#control-div>div
+{
+    vertical-align: top;
+    margin-right: 5px;
+    display: inline-block;
+    width: 230px;
+}
+
+#control-div>div>div
+{
+    height: 305px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.score-table
+{
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.score-table td, .score-table th
+{
+    font-size: 14px;
+    border: 1px solid #000;
+    padding: 1px 12px 1px 12px;
+    text-align:center
+}
