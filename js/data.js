@@ -35,7 +35,7 @@ Data.game =
         PIPE_HEIGHT: 500,
         PIPE_MIN_Y: 100,
         PIPE_MAX_Y: 305,
-        SPACE_HEIGHT: 100,
+        SPACE_HEIGHT: 85,
         BIRD_INIT_X: 100,
         BIRD_INIT_Y: 200,
         BIRD_RADIUS: 12,
