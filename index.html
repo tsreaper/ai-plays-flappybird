@@ -1,119 +1,130 @@
 <!doctype html>
 <html>
-    <head>
-        <title>AI Plays Flappy Bird</title>
-        <link rel="stylesheet" href="css/flappy.css" type="text/css" />
-        <script type="text/javascript" src="js/data.js"></script>
-        <script type="text/javascript" src="js/network.js"></script>
-        <script type="text/javascript" src="js/bird.js"></script>
-        <script type="text/javascript" src="js/generation.js"></script>
-        <script type="text/javascript" src="js/game.js"></script>
-        <script type="text/javascript" src="js/dashboard.js"></script>
-        <script type="text/javascript" src="js/animation.js"></script>
-        <script type="text/javascript" src="js/imageManager.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
-    </head>
-    
-    <body>
-        <div id="title">
-            <h1>AI Plays Flappy Bird</h1>
-            <h3>Using genetic algorithm and neural networks to teach AI to play flappy bird.</h3>
-            <h2>Made by TsReaper.&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/TsReaper/AI-Plays-FlappyBird">Find this project on GitHub</a>.</h2>
+<head>
+    <title>AI Plays Flappy Bird</title>
+    <link rel="stylesheet" href="css/flappy.css" type="text/css"/>
+    <script type="text/javascript" src="js/data.js"></script>
+    <script type="text/javascript" src="js/network.js"></script>
+    <script type="text/javascript" src="js/SigmoidalActivationNetwork.js"></script>
+    <script type="text/javascript" src="js/CustomTangentActivationNetwork.js"></script>
+    <script type="text/javascript" src="js/HyperbolicTangentActivationNetwork.js"></script>
+    <script type="text/javascript" src="js/ReLuActivationNetwork.js"></script>
+    <script type="text/javascript" src="js/ArcTanActivationNetwork.js"></script>
+    <script type="text/javascript" src="js/bird.js"></script>
+    <script type="text/javascript" src="js/generation.js"></script>
+    <script type="text/javascript" src="js/game.js"></script>
+    <script type="text/javascript" src="js/dashboard.js"></script>
+    <script type="text/javascript" src="js/animation.js"></script>
+    <script type="text/javascript" src="js/imageManager.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</head>
+
+<body>
+<div id="title">
+    <h1>AI Plays Flappy Bird</h1>
+    <h3>Using genetic algorithm and neural networks to teach AI to play flappy bird.</h3>
+    <h2>Made by TsReaper.&nbsp;&nbsp;&nbsp;&nbsp;<a
+            href="https://github.com/TsReaper/AI-Plays-FlappyBird">Find this project on GitHub</a>.
+    </h2>
+</div>
+
+<center>
+    <div id="main-content">
+
+        <div id="canvas-div">
+            <canvas id="canvas" width="336" height="512"></canvas>
         </div>
-        
-        <div id="main-content">
-        
-            <div id="canvas-div">
-                <canvas id="canvas" width="336" height="512"></canvas>
+
+        <div id="control-div">
+
+            <div>
+                <h2>Generation <span id="generation-num">1</span></h2>
+                <div>
+                    <table class="score-table">
+                        <thead>
+                        <th>ID</th>
+                        <th>Fitness</th>
+                        <th>Score</th>
+                        </thead>
+                        <tbody id="score">
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            
-            <div id="control-div">
-            
+
+            <div>
+                <h2>History</h2>
                 <div>
-                    <h2>Generation <span id="generation-num">1</span></h2>
-                    <div>
-                        <table class="score-table">
-                            <thead>
-                                <th>ID</th>
-                                <th>Fitness</th>
-                                <th>Score</th>
-                            </thead>
-                            <tbody id="score">
-                            </tbody>
-                        </table>
-                    </div>
+                    <table class="score-table">
+                        <thead>
+                        <th>Gen</th>
+                        <th>Fitness</th>
+                        <!--<th>winner</th>-->
+                        <th>Score</th>
+                        </thead>
+                        <tbody id="history">
+                        </tbody>
+                    </table>
                 </div>
-                
-                <div>
-                    <h2>History</h2>
-                    <div>
-                        <table class="score-table">
-                            <thead>
-                                <th>Gen</th>
-                                <th>Fitness</th>
-                                <th>Score</th>
-                            </thead>
-                            <tbody id="history">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div>
-                    <br>
-                    <input type="checkbox" id="enable-animation" />Enable Animation<br><br>
-                    *Population Size
-                    <select id="pop-size">
-                        <option value="15">15</option>
-                        <option value="30">30</option>
-                        <option value="50">50</option>
-                        <option value="70">70</option>
-                        <option value="100">100</option>
-                    </select><br><br>
-                    *Survive Rate
-                    <select id="survive-rate">
-                        <option value="0.05">5%</option>
-                        <option value="0.1">10%</option>
-                        <option value="0.15">15%</option>
-                        <option value="0.2">20%</option>
-                        <option value="0.3">30%</option>
-                        <option value="0.4">40%</option>
-                        <option value="0.5">50%</option>
-                    </select>
-                </div>
-                
-                <div>
-                    <br>
-                    <input type="checkbox" id="show-pipe" />Show Next Pipe<br><br>
-                    *Mutation Chance
-                    <select id="mutate-chance">
-                        <option value="0.01">1%</option>
-                        <option value="0.05">5%</option>
-                        <option value="0.1">10%</option>
-                        <option value="0.2">20%</option>
-                        <option value="0.3">30%</option>
-                        <option value="0.4">40%</option>
-                        <option value="0.5">50%</option>
-                        <option value="0.6">60%</option>
-                        <option value="0.7">70%</option>
-                    </select><br><br>
-                    Simulation Speed
-                    <select id="sim-speed">
-                        <option value="40">Very slow</option>
-                        <option value="24">Slow</option>
-                        <option value="12">Normal</option>
-                        <option value="7">Fast</option>
-                        <option value="0">Very fast</option>
-                    </select>
-                </div>
-                
-                <br><br>
-                Red bird is the best individual of the last generation. Yellow birds are other birds of the last generation. Blue birds are new-born birds.
-                <br><br>
-                Note: The changes of the "*" options will be effective only after the current round is over.
-                
             </div>
-            
+
+            <div>
+                <br>
+                <input type="checkbox" id="enable-animation"/>Enable Animation<br><br>
+                *Population Size
+                <select id="pop-size">
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="50">50</option>
+                    <option value="70">70</option>
+                    <option value="100">100</option>
+                </select><br><br>
+                *Survive Rate
+                <select id="survive-rate">
+                    <option value="0.05">5%</option>
+                    <option value="0.1">10%</option>
+                    <option value="0.15">15%</option>
+                    <option value="0.2">20%</option>
+                    <option value="0.3">30%</option>
+                    <option value="0.4">40%</option>
+                    <option value="0.5">50%</option>
+                </select>
+            </div>
+
+            <div>
+                <br>
+                <input type="checkbox" id="show-pipe"/>Show Next Pipe<br><br>
+                *Mutation Chance
+                <select id="mutate-chance">
+                    <option value="0.01">1%</option>
+                    <option value="0.05">5%</option>
+                    <option value="0.1">10%</option>
+                    <option value="0.2">20%</option>
+                    <option value="0.3">30%</option>
+                    <option value="0.4">40%</option>
+                    <option value="0.5">50%</option>
+                    <option value="0.6">60%</option>
+                    <option value="0.7">70%</option>
+                </select><br><br>
+                Simulation Speed
+                <select id="sim-speed">
+                    <option value="40">Very slow</option>
+                    <option value="24">Slow</option>
+                    <option value="12">Normal</option>
+                    <option value="7">Fast</option>
+                    <option value="0">Very fast</option>
+                </select>
+            </div>
+
+            <br><br>
+            Red bird is the best individual of the last generation. Yellow birds are other birds of
+            the last generation. Blue birds are new-born birds.
+            <br><br>
+            Note: The changes of the "*" options will be effective only after the current round is
+            over.
         </div>
-    </body>
+
+    </div>
+</center>
+</body>
 </html>

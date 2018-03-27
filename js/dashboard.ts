@@ -90,6 +90,10 @@ class Dashboard {
         td.appendChild(document.createTextNode(bestBird.fitness));
         tr.appendChild(td);
 
+        // td = document.createElement("td");
+        // td.appendChild(document.createTextNode(`${game.generation.birds[0].network.nodes.map(num=>String.fromCharCode(num+64)).join('')}`));
+        // tr.appendChild(td);
+
         td = document.createElement("td");
         td.appendChild(document.createTextNode(bestBird.score));
         tr.appendChild(td);

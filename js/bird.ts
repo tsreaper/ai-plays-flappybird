@@ -1,4 +1,6 @@
 ///<reference path="network.ts"/>
+///<reference path="ReLuActivationNetwork.ts"/>
+///<reference path="ArcTanActivationNetwork.ts"/>
 class Bird {
     public network: Network;
     /** The distance the bird has flown*/
@@ -11,7 +13,7 @@ class Bird {
     alive: boolean;
 
     constructor() {
-        this.network = new Network();
+        this.network = new ArcTanActivationNetwork();
         this.init();
     }
 
@@ -25,10 +27,10 @@ class Bird {
     }
 
     /**Use neural network to decide whether to fly or not*/
-    public fly(pipeDis: number, pipeUpper: number): void {
+    public fly(PipeDistance: number, pipeUpper: number): void {
         if (this.alive) {
             this._fitness++;
-            if (this.network.getOutput(pipeDis / Data.animation.SCREEN_WIDTH, (this.y - pipeUpper) / Data.animation.SCREEN_HEIGHT)) {
+            if (this.network.getOutput(PipeDistance / Data.animation.SCREEN_WIDTH, (this.y - pipeUpper) / Data.animation.SCREEN_HEIGHT)) {
                 this.speed = -Data.game.FLY_SPEED;
             }
         }

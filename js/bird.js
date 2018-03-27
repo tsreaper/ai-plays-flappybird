@@ -1,7 +1,9 @@
 ///<reference path="network.ts"/>
+///<reference path="ReLuActivationNetwork.ts"/>
+///<reference path="ArcTanActivationNetwork.ts"/>
 var Bird = /** @class */ (function () {
     function Bird() {
-        this.network = new Network();
+        this.network = new ArcTanActivationNetwork();
         this.init();
     }
     Bird.prototype.init = function () {
@@ -13,10 +15,10 @@ var Bird = /** @class */ (function () {
         this.alive = true;
     };
     /**Use neural network to decide whether to fly or not*/
-    Bird.prototype.fly = function (pipeDis, pipeUpper) {
+    Bird.prototype.fly = function (PipeDistance, pipeUpper) {
         if (this.alive) {
             this._fitness++;
-            if (this.network.getOutput(pipeDis / Data.animation.SCREEN_WIDTH, (this.y - pipeUpper) / Data.animation.SCREEN_HEIGHT)) {
+            if (this.network.getOutput(PipeDistance / Data.animation.SCREEN_WIDTH, (this.y - pipeUpper) / Data.animation.SCREEN_HEIGHT)) {
                 this.speed = -Data.game.FLY_SPEED;
             }
         }
