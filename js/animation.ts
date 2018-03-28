@@ -1,31 +1,42 @@
 ///<reference path="data.ts"/>
-var Animation = /** @class */ (function () {
-    function Animation() {
-        var elementById = document.getElementById("canvas");
+class Animation {
+    private _canvas: CanvasRenderingContext2D | null;
+    private _landX: number[];
+
+
+    constructor() {
+        const elementById = <HTMLCanvasElement>document.getElementById("canvas");
         this._canvas = elementById.getContext("2d");
         this._landX = [];
     }
-    Animation.prototype.initAnimation = function () {
-        for (var i = 0; i < Data.animation.LAND_NUM; i++) {
+
+    public initAnimation() {
+        for (let i = 0; i < Data.animation.LAND_NUM; i++) {
             this._landX[i] = Data.animation.SCREEN_WIDTH * i;
         }
-    };
-    Animation.prototype.updateAnimation = function () {
+    }
+
+    public updateAnimation() {
         this.moveLands();
+
         if (!dashboard.enableAnimation) {
             return;
         }
+
         this.drawBackground();
         this.drawPipes();
         this.drawLands();
         this.drawBirds();
         this.drawScore();
-    };
-    Animation.prototype.drawBackground = function () {
+
+    }
+
+    private drawBackground() {
         this._canvas.drawImage(ImageManager.getImage(bgString), 0, 0);
-    };
-    Animation.prototype.drawPipes = function () {
-        for (var pipeIdx = 0; pipeIdx < Data.game.PIPE_NUM; pipeIdx++) {
+    }
+
+    private drawPipes() {
+        for (let pipeIdx = 0; pipeIdx < Data.game.PIPE_NUM; pipeIdx++) {
             if (dashboard.showPipe && pipeIdx == game.nextPipe) {
                 this._canvas.drawImage(ImageManager.getImage("pipeRedUp"), game.pipeX[pipeIdx], game.pipeUpper[pipeIdx] + Data.game.SPACE_HEIGHT);
                 this._canvas.drawImage(ImageManager.getImage("pipeRedDown"), game.pipeX[pipeIdx], game.pipeUpper[pipeIdx] - Data.game.PIPE_HEIGHT);
@@ -35,25 +46,28 @@ var Animation = /** @class */ (function () {
                 this._canvas.drawImage(ImageManager.getImage("pipeDown"), game.pipeX[pipeIdx], game.pipeUpper[pipeIdx] - Data.game.PIPE_HEIGHT);
             }
         }
-    };
-    Animation.prototype.drawLands = function () {
-        for (var landIdx = 0; landIdx < Data.animation.LAND_NUM; landIdx++) {
+    }
+
+    private drawLands() {
+        for (let landIdx = 0; landIdx < Data.animation.LAND_NUM; landIdx++) {
             this._canvas.drawImage(ImageManager.getImage("land"), this._landX[landIdx], Data.game.LAND_Y);
         }
-    };
-    Animation.prototype.drawBirds = function () {
-        for (var birdIdx = Data.generation.BIRD_NUM - 1; birdIdx >= 0; birdIdx--) {
+    }
+
+    private drawBirds() {
+        for (let birdIdx = Data.generation.BIRD_NUM - 1; birdIdx >= 0; birdIdx--) {
             this._canvas.save();
             this._canvas.translate(game.generation.birds[birdIdx].x, game.generation.birds[birdIdx].y);
             this._canvas.rotate(Math.min(game.generation.birds[birdIdx].speed * 7, 90) * Math.PI / 180);
             this._canvas.drawImage(ImageManager.getImage(birdIdx ? (birdIdx >= Data.generation.SURVIVOR_NUM ? "birdBlue0" : "birdYellow0") : "birdRed0"), -24, -24);
             this._canvas.restore();
         }
-    };
-    Animation.prototype.drawScore = function () {
-        var score = game.currentScore;
-        var width = 0;
-        var scoreX;
+    }
+
+    private drawScore() {
+        let score = game.currentScore;
+        let width = 0;
+        let scoreX;
         if (score == 0) {
             this._canvas.drawImage(ImageManager.getImage("0"), (Data.animation.SCREEN_WIDTH - Data.animation.SCORE_WIDTH) / 2, Data.animation.SCORE_Y);
         }
@@ -71,9 +85,10 @@ var Animation = /** @class */ (function () {
                 score = Math.floor(score / 10);
             }
         }
-    };
-    Animation.prototype.moveLands = function () {
-        for (var landIdx = 0; landIdx < Data.animation.LAND_NUM; landIdx++) {
+    }
+
+    private moveLands() {
+        for (let landIdx = 0; landIdx < Data.animation.LAND_NUM; landIdx++) {
             if (!game.gameover) {
                 this._landX[landIdx] -= Data.game.MOVE_SPEED;
                 if (this._landX[landIdx] <= -Data.animation.SCREEN_WIDTH) {
@@ -81,6 +96,5 @@ var Animation = /** @class */ (function () {
                 }
             }
         }
-    };
-    return Animation;
-}());
+    }
+}

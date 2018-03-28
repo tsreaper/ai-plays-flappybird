@@ -1,42 +1,62 @@
 ///<reference path="data.ts"/>
 ///<reference path="generation.ts"/>
-var Game = /** @class */ (function () {
-    function Game() {
+class Game{
+    private generation: Generation;
+    private nextPipe: number;
+    private gameover: boolean;
+    private currentScore: number;
+    private _aliveNum: number;
+    private pipeX: number[];
+    private pipeUpper: number[];
+    private timer:number;
+
+    constructor() {
         this._aliveNum = 0;
+
         this.currentScore = 0;
         this.gameover = false;
+
         this.pipeX = [];
         this.pipeUpper = [];
         this.nextPipe = Data.game.PIPE_NUM;
         this.generation = new Generation();
     }
-    Game.prototype._getNewPipeY = function () {
+
+
+    private _getNewPipeY ():number {
         return Math.floor(Math.random() * (Data.game.PIPE_MAX_Y - Data.game.PIPE_MIN_Y)) + Data.game.PIPE_MIN_Y;
-    };
-    Game.prototype.initGame = function () {
+    }
+
+    public initGame () {
         // Initialize the position of pipes
         for (var i = 0; i < Data.game.PIPE_NUM; i++) {
             this.pipeX[i] = (Data.animation.SCREEN_WIDTH + Data.game.PIPE_WIDTH) * (1.5 + i * 0.5);
             this.pipeUpper[i] = this._getNewPipeY();
         }
         this.pipeX[Data.game.PIPE_NUM] = Number.MAX_VALUE;
+
         this._aliveNum = Data.generation.BIRD_NUM;
         this.currentScore = 0;
         this.gameover = false;
+
         dashboard.initDashboard();
         animation.initAnimation();
-    };
-    Game.prototype.updateGame = function () {
+    }
+
+    public updateGame () {
         if (!this.gameover) {
             this.movePipes();
             this.findNextPipe();
         }
+
         this.moveBirds();
         this.checkForGameOver();
+
         dashboard.updateDashboard();
         animation.updateAnimation();
-    };
-    Game.prototype.movePipes = function () {
+    }
+
+    private movePipes() {
         for (var pipeIdx = 0; pipeIdx < Data.game.PIPE_NUM; pipeIdx++) {
             this.pipeX[pipeIdx] -= Data.game.MOVE_SPEED;
             if (this.pipeX[pipeIdx] <= -Data.game.PIPE_WIDTH) {
@@ -47,16 +67,18 @@ var Game = /** @class */ (function () {
         if (this.pipeX[this.nextPipe] < Data.game.BIRD_INIT_X - Data.game.PIPE_WIDTH - Data.game.BIRD_RADIUS) {
             this.currentScore++;
         }
-    };
-    Game.prototype.findNextPipe = function () {
+    }
+
+    private findNextPipe() {
         this.nextPipe = Data.game.PIPE_NUM;
         for (var i = 0; i < Data.game.PIPE_NUM; i++) {
             if (this.pipeX[i] >= Data.game.BIRD_INIT_X - Data.game.PIPE_WIDTH - Data.game.BIRD_RADIUS && this.pipeX[i] < this.pipeX[this.nextPipe]) {
                 this.nextPipe = i;
             }
         }
-    };
-    Game.prototype.moveBirds = function () {
+    }
+
+    private moveBirds() {
         for (var birdIdx = 0; birdIdx < Data.generation.BIRD_NUM; birdIdx++) {
             this.generation.birds[birdIdx].fly(this.pipeX[this.nextPipe] - Data.game.BIRD_INIT_X, this.pipeUpper[this.nextPipe]);
             if (this.generation.birds[birdIdx].alive) {
@@ -70,16 +92,19 @@ var Game = /** @class */ (function () {
                 this.generation.birds[birdIdx].y = Data.game.LAND_Y - Data.game.BIRD_RADIUS;
             }
         }
-    };
-    Game.prototype.moveAliveBird = function (birdIdx) {
+    }
+
+    private moveAliveBird(birdIdx: number) {
         this.generation.birds[birdIdx].score = this.currentScore;
         // Bird hit the land
         if (this.generation.birds[birdIdx].y + Data.game.BIRD_RADIUS >= Data.game.LAND_Y) {
             this.generation.birds[birdIdx].alive = false;
         }
+        // Bird fly too high
         else if (this.generation.birds[birdIdx].y <= -Data.game.BIRD_RADIUS) {
             this.generation.birds[birdIdx].alive = false;
         }
+        // Bird hit the pipe
         else if (this.pipeX[this.nextPipe] - Data.game.BIRD_INIT_X <= Data.game.BIRD_RADIUS) {
             if (this.generation.birds[birdIdx].y - Data.game.BIRD_RADIUS <= this.pipeUpper[this.nextPipe] || this.generation.birds[birdIdx].y + Data.game.BIRD_RADIUS >= this.pipeUpper[this.nextPipe] + Data.game.SPACE_HEIGHT) {
                 this.generation.birds[birdIdx].alive = false;
@@ -88,8 +113,9 @@ var Game = /** @class */ (function () {
         if (!this.generation.birds[birdIdx].alive) {
             this._aliveNum--;
         }
-    };
-    Game.prototype.checkForGameOver = function () {
+    }
+
+    private checkForGameOver() {
         if (!this._aliveNum && !this.gameover) {
             var self = this;
             dashboard.addHistory();
@@ -100,8 +126,9 @@ var Game = /** @class */ (function () {
             }, dashboard.getSimSpeed() * 70);
             this.gameover = true;
         }
-    };
-    Game.prototype.setTimer = function () {
+    }
+
+    public setTimer () {
         var self = this;
         if (this.timer) {
             clearInterval(this.timer);
@@ -109,6 +136,5 @@ var Game = /** @class */ (function () {
         this.timer = setInterval(function () {
             self.updateGame();
         }, dashboard.getSimSpeed());
-    };
-    return Game;
-}());
+    }
+}
