@@ -1,6 +1,6 @@
 ///<reference path="network.ts"/>
-///<reference path="ReLuActivationNetwork.ts"/>
-///<reference path="ArcTanActivationNetwork.ts"/>
+///<reference path="network/relu_network.ts"/>
+///<reference path="network/arctan_network.ts"/>
 var Bird = /** @class */ (function () {
     function Bird() {
         this.network = new ArcTanActivationNetwork();

@@ -1,4 +1,4 @@
-///<reference path="imageManager.ts"/>
+///<reference path="image_manager.ts"/>
 ///<reference path="game.ts"/>
 ///<reference path="dashboard.ts"/>
 ///<reference path="animation.ts"/>
