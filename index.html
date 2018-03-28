@@ -10,25 +10,25 @@
         <script type="text/javascript" src="js/game.js"></script>
         <script type="text/javascript" src="js/dashboard.js"></script>
         <script type="text/javascript" src="js/animation.js"></script>
-        <script type="text/javascript" src="js/imageManager.js"></script>
+        <script type="text/javascript" src="js/image_manager.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
     </head>
-    
+
     <body>
         <div id="title">
             <h1>AI Plays Flappy Bird</h1>
             <h3>Using genetic algorithm and neural networks to teach AI to play flappy bird.</h3>
             <h2>Made by TsReaper.&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/TsReaper/AI-Plays-FlappyBird">Find this project on GitHub</a>.</h2>
         </div>
-        
+
         <div id="main-content">
-        
+
             <div id="canvas-div">
                 <canvas id="canvas" width="336" height="512"></canvas>
             </div>
-            
+
             <div id="control-div">
-            
+
                 <div>
                     <h2>Generation <span id="generation-num">1</span></h2>
                     <div>
@@ -43,7 +43,7 @@
                         </table>
                     </div>
                 </div>
-                
+
                 <div>
                     <h2>History</h2>
                     <div>
@@ -58,7 +58,7 @@
                         </table>
                     </div>
                 </div>
-                
+
                 <div>
                     <br>
                     <input type="checkbox" id="enable-animation" />Enable Animation<br><br>
@@ -81,7 +81,7 @@
                         <option value="0.5">50%</option>
                     </select>
                 </div>
-                
+
                 <div>
                     <br>
                     <input type="checkbox" id="show-pipe" />Show Next Pipe<br><br>
@@ -106,14 +106,14 @@
                         <option value="0">Very fast</option>
                     </select>
                 </div>
-                
+
                 <br><br>
                 Red bird is the best individual of the last generation. Yellow birds are other birds of the last generation. Blue birds are new-born birds.
                 <br><br>
                 Note: The changes of the "*" options will be effective only after the current round is over.
-                
+
             </div>
-            
+
         </div>
     </body>
 </html>
