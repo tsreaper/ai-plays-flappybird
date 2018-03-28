@@ -4,6 +4,8 @@ function Dashboard() {
     this._popSize = document.getElementById("pop-size");
     this._surviveRate = document.getElementById("survive-rate");
     this._mutateChance = document.getElementById("mutate-chance");
+    this._activationFunction = document.getElementById("activation-function");
+    this._scrollSpeed = document.getElementById("scroll-speed");
     this._simSpeed = document.getElementById("sim-speed");
 
     this._enableAnimation.checked = true;
@@ -22,6 +24,9 @@ function Dashboard() {
     }
     this._showPipe.onchange = function() {
         self.showPipe = !self.showPipe;
+    }
+    this._scrollSpeed.onchange = function() {
+        Data.game.MOVE_SPEED = Number(self._scrollSpeed.options[self._scrollSpeed.selectedIndex].value);
     }
     this._simSpeed.onchange = function() {
         game.setTimer();
@@ -79,6 +84,10 @@ Dashboard.prototype = {
         tr.appendChild(td);
 
         table.appendChild(tr);
+
+        // Auto scroll table
+        var historyDiv = document.getElementById("history-div");
+        historyDiv.scrollTop = historyDiv.scrollHeight;
     },
 
     getSurvivorNum: function() {
@@ -91,6 +100,10 @@ Dashboard.prototype = {
 
     getMutateChance: function() {
         return Number(this._mutateChance.options[this._mutateChance.selectedIndex].value);
+    },
+
+    getActivationFunction: function() {
+        return this._activationFunction.options[this._activationFunction.selectedIndex].value;
     },
 
     getSimSpeed: function() {

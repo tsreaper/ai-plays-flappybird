@@ -11,7 +11,7 @@ Network.prototype = {
         if (fn > this.nodeSize) {
             fn = Data.network.NODE_OUTPUT;
         }
-        if (sn > fn) {
+        if (sn > fn && fn != Data.network.NODE_OUTPUT) {
             var t = sn;
             sn = fn;
             fn = t;
@@ -29,11 +29,12 @@ Network.prototype = {
         }
     },
 
-    getOutput: function(pipeDis, pipeUpper) {
+    getOutput: function(pipeDis, pipeUpper, pipe2Upper) {
         // Initialize the value of nodes
         this.nodes[Data.network.NODE_BIAS] = 1;
         this.nodes[Data.network.NODE_PIPE_DIS] = pipeDis;
         this.nodes[Data.network.NODE_PIPE_UPPER] = pipeUpper;
+        this.nodes[Data.network.NODE_PIPE2_UPPER] = pipe2Upper;
         this.nodes[Data.network.NODE_OUTPUT] = 0;
         for (var i = Data.network.INPUT_SIZE + 1; i <= this.nodeSize; i++) {
             this.nodes[i] = 0;
@@ -41,17 +42,22 @@ Network.prototype = {
 
         for (var i = 1; i <= this.nodeSize; i++) {
             if (i > Data.network.INPUT_SIZE) {
-                this.nodes[i] = this._sigmoid(this.nodes[i]);
+                this.nodes[i] = this._activation(this.nodes[i]);
             }
             for (var j in this.edges[i]) {
                 this.nodes[j] += this.nodes[i] * this.edges[i][j];
             }
         }
+
         return this.nodes[Data.network.NODE_OUTPUT] > 0;
     },
 
-    _sigmoid: function(x) {
-        return 2 / (1 + Math.exp( - 4.9 * x)) - 1;
+    setActivation: function(f) {
+        this._activation = f;
+    },
+
+    _activation: function(x) {
+        return 2 / (1 + Math.exp(-4.9 * x)) - 1;
     },
 
     _changeEdgeWeight: function(sn, fn) {
@@ -69,5 +75,24 @@ Network.prototype = {
         this.edges[this.nodeSize] = this.edges[this.nodeSize] || [];
         this.edges[this.nodeSize][fn] = this.edges[sn][fn];
         this.edges[sn][fn] = 0;
+    }
+}
+
+var Activation = {
+    get: function(name) {
+        switch (name) {
+        case Data.activation.SIGMOID:
+            return function(x) { return 1 / (1 + Math.exp(-x)); }
+        case Data.activation.ARCTAN:
+            return function(x) { return 1 / (Math.pow(x, 2) + 1); }
+        case Data.activation.CUSTOM_TANGENT:
+            return function(x) { return 2 / (1 + Math.exp(-4.9 * x)) - 1; }
+        case Data.activation.HYPERBOLIC_TANGENT:
+            return function(x) { return 1 / (1 + Math.exp(-2 * x)); }
+        case Data.activation.RELU:
+            return function(x) { return Math.max(0, x); }
+        default:
+            return function(x) { return x; }
+        }
     }
 }

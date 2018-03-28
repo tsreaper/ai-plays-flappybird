@@ -5,12 +5,21 @@ Data.network = {
     NODE_BIAS: 1,
     NODE_PIPE_DIS: 2,
     NODE_PIPE_UPPER: 3,
-    NODE_OUTPUT: 20,
+    NODE_PIPE2_UPPER: 4,
+    NODE_OUTPUT: 0,
 
-    INPUT_SIZE: 3,
+    INPUT_SIZE: 4,
 
     STEP_SIZE: 0.1, // The largest increment/decrement when changing the weight of an edge
     ADD_NODE_CHANCE: 0.5
+}
+
+Data.activation = {
+    SIGMOID: "sigmoid",
+    ARCTAN: "arctan",
+    CUSTOM_TANGENT: "custom",
+    HYPERBOLIC_TANGENT: "hyperbolic",
+    RELU: "relu"
 }
 
 Data.generation = {
@@ -31,7 +40,7 @@ Data.animation = {
 }
 
 Data.game = {
-    PIPE_NUM: 2,
+    PIPE_NUM: 3,
     PIPE_WIDTH: 52,
     PIPE_HEIGHT: 500,
     PIPE_MIN_Y: 100,
@@ -44,8 +53,7 @@ Data.game = {
     BIRD_INIT_Y: 200,
     BIRD_RADIUS: 12,
 
-    GRAVITY: 0.25,
-    FLY_SPEED: 5.25, // The y-coordinate speed after the bird flap its wings
-    MOVE_SPEED: 2.25 // The x-coordinate speed of the birds
-
+    GRAVITY: 0.4,
+    FLY_SPEED: 5.5, // The y-coordinate speed after the bird flap its wings
+    MOVE_SPEED: 2 // The x-coordinate speed of the birds
 }

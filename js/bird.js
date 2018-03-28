@@ -14,10 +14,13 @@ Bird.prototype = {
     },
 
     // Use neural network to decide whether to fly or not
-    fly: function(pipeDis, pipeUpper) {
+    fly: function(pipeDis, pipeUpper, pipe2Upper) {
         if (this.alive) {
             this.fitness++;
-            if (this.network.getOutput(pipeDis / Data.animation.SCREEN_WIDTH, (this.y - pipeUpper) / Data.animation.SCREEN_HEIGHT)) {
+            if (this.network.getOutput(
+                pipeDis / Data.animation.SCREEN_WIDTH, (this.y - pipeUpper) / Data.animation.SCREEN_HEIGHT,
+                (this.y - pipe2Upper) / Data.animation.SCREEN_HEIGHT
+            )) {
                 this.speed = -Data.game.FLY_SPEED;
             }
         }

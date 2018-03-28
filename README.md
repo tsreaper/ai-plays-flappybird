@@ -3,6 +3,8 @@ Using genetic algorithm and neural networks to teach AI to play flappy bird. Ins
 
 You can try this project in [this page](https://tsreaper.github.io/AI-Plays-FlappyBird/).
 
+The TypeScript version is committed mainly by [@javatlacati](https://github.com/javatlacati). [Check it out](https://github.com/TsReaper/AI-Plays-FlappyBird/tree/typescript).
+
 ## Goals
 - [x] Make a flappy bird game
 - [x] Construct neural networks
@@ -14,6 +16,13 @@ You can try this project in [this page](https://tsreaper.github.io/AI-Plays-Flap
 
 ## Results and Notes
 <img src="https://github.com/TsReaper/AI-Plays-FlappyBird/blob/master/result.png" align="right">
+
+### 2018/03/28
+I didn't expect this repo to have so many stars (at least from my perspective) when I first wrote this litte project. I reviewed this project today and made some changes.
+
+* A few more activation functions are added and can be selected from the dashboard (inspired by the TypeScript version committed by [@javatlacati](https://github.com/javatlacati)).
+
+* The height of the next-next-coming pipe is also fed to the neural network. This will make the evolution a little harder, but it provides a better result when the map is scrolling faster.
 
 ### 2016/06/20
 Rewrite the whole project in a syntax which is easier(?) to read and add the "enable animation" function.

@@ -59,7 +59,7 @@ Game.prototype = {
         for (var i = 0; i < Data.game.PIPE_NUM; i++) {
             this.pipeX[i] -= Data.game.MOVE_SPEED;
             if (this.pipeX[i] <= -Data.game.PIPE_WIDTH) {
-                this.pipeX[i] = Data.animation.SCREEN_WIDTH;
+                this.pipeX[i] = (Data.animation.SCREEN_WIDTH + Data.game.PIPE_WIDTH) * 0.5 * Data.game.PIPE_NUM - Data.game.PIPE_WIDTH;
                 this.pipeUpper[i] = this._getNewPipeY();
             }
         }
@@ -78,8 +78,12 @@ Game.prototype = {
     },
 
     _moveBird: function() {
+        var next2Pipe = (this.nextPipe + 1) % Data.game.PIPE_NUM;
         for (var i = 0; i < Data.generation.BIRD_NUM; i++) {
-            this.generation.birds[i].fly(this.pipeX[this.nextPipe] - Data.game.BIRD_INIT_X, this.pipeUpper[this.nextPipe]);
+            this.generation.birds[i].fly(
+                this.pipeX[this.nextPipe] - Data.game.BIRD_INIT_X, this.pipeUpper[this.nextPipe],
+                this.pipeUpper[next2Pipe]
+            );
             if (this.generation.birds[i].alive) {
                 this.generation.birds[i].score = this.currentScore;
                 // Bird hit the land

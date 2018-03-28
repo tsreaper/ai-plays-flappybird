@@ -28,7 +28,6 @@
             </div>
 
             <div id="control-div">
-
                 <div>
                     <h2>Generation <span id="generation-num">1</span></h2>
                     <div>
@@ -46,7 +45,7 @@
 
                 <div>
                     <h2>History</h2>
-                    <div>
+                    <div id="history-div">
                         <table class="score-table">
                             <thead>
                                 <th>Gen</th>
@@ -61,7 +60,17 @@
 
                 <div>
                     <br>
-                    <input type="checkbox" id="enable-animation" />Enable Animation<br><br>
+                    <input type="checkbox" id="enable-animation" />Enable Animation
+                </div>
+
+                <div>
+                    <br>
+                    <input type="checkbox" id="show-pipe" />Show Next Pipe
+                </div>
+
+                <hr>
+
+                <div>
                     *Population Size
                     <select id="pop-size">
                         <option value="15">15</option>
@@ -83,8 +92,6 @@
                 </div>
 
                 <div>
-                    <br>
-                    <input type="checkbox" id="show-pipe" />Show Next Pipe<br><br>
                     *Mutation Chance
                     <select id="mutate-chance">
                         <option value="0.01">1%</option>
@@ -97,6 +104,30 @@
                         <option value="0.6">60%</option>
                         <option value="0.7">70%</option>
                     </select><br><br>
+                    **Activation
+                    <select id="activation-function">
+                        <option value="custom">Custom Tangent</option>
+                        <option value="arctan">Arctan</option>
+                        <option value="hyperbolic">Hyperbolic Tangent</option>
+                        <option value="sigmoid">Sigmoid</option>
+                        <option value="relu">ReLu</option>
+                    </select>
+                </div>
+
+                <hr>
+
+                <div>
+                    Scroll Speed
+                    <select id="scroll-speed">
+                        <option value="2">Slow</option>
+                        <option value="2.5">Normal</option>
+                        <option value="3">Fast</option>
+                        <option value="3.5">Very fast</option>
+                        <option value="4">Extreme</option>
+                    </select>
+                </div>
+
+                <div>
                     Simulation Speed
                     <select id="sim-speed">
                         <option value="40">Very slow</option>
@@ -110,7 +141,7 @@
                 <br><br>
                 Red bird is the best individual of the last generation. Yellow birds are other birds of the last generation. Blue birds are new-born birds.
                 <br><br>
-                Note: The changes of the "*" options will be effective only after the current round is over.
+                Note: The changes of the "*" options will be effective only after the current generation is over; The changes of the "**" operations will be effective only for new-born birds.
 
             </div>
 

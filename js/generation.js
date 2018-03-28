@@ -25,6 +25,7 @@ Generation.prototype = {
             delete this.birds[i];
         }
 
+        Data.generation.SURVIVOR_NUM = Math.min(Data.generation.SURVIVOR_NUM, Data.generation.BIRD_NUM);
         for (var i = Data.generation.SURVIVOR_NUM; i < Data.generation.BIRD_NUM; i++) {
             this.birds[i] = this._breed(Math.floor(Math.random() * Data.generation.SURVIVOR_NUM), Math.floor(Math.random() * Data.generation.SURVIVOR_NUM));
         }
@@ -36,6 +37,7 @@ Generation.prototype = {
 
     _breed: function(birdA, birdB) {
         var baby = new Bird();
+        baby.network.setActivation(Activation.get(dashboard.getActivationFunction()));
 
         if (this.birds[birdA].fitness < this.birds[birdB].fitness) {
             var t = birdA;
