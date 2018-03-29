@@ -17,12 +17,15 @@ The TypeScript version is committed mainly by [@javatlacati](https://github.com/
 ## Results and Notes
 <img src="https://github.com/TsReaper/AI-Plays-FlappyBird/blob/master/result.png" align="right">
 
+### 2018/03/29
+It seems that there are more cons than pros for the birds to foresee the next two pipes instead of one, so I add an option on the dashboard to let the user enable or disable this feature (disabled by default).
+
 ### 2018/03/28
 I didn't expect this repo to have so many stars (at least from my perspective) when I first wrote this litte project. I reviewed this project today and made some changes.
 
 * A few more activation functions are added and can be selected from the dashboard (inspired by the TypeScript version committed by [@javatlacati](https://github.com/javatlacati)).
 
-* The height of the next-next-coming pipe is also fed to the neural network. This will make the evolution a little harder, but it provides a better result when the map is scrolling faster.
+* The height of the next-next-coming pipe is also fed to the neural network. This will make the evolution a little harder, but it provides a better result when the map is scrolling faster. Check the pros and cons of this feature [in this discussion](https://github.com/TsReaper/AI-Plays-FlappyBird/pull/2#issuecomment-377093794).
 
 ### 2016/06/20
 Rewrite the whole project in a syntax which is easier(?) to read and add the "enable animation" function.

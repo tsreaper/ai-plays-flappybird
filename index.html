@@ -71,6 +71,23 @@
                 <hr>
 
                 <div>
+                    <input type="checkbox" id="see-two-pipe" />**Foresee Next Two Pipes (instead of one)
+                </div>
+
+                <div>
+                    **Activation
+                    <select id="activation-function">
+                        <option value="custom">Custom Tangent</option>
+                        <option value="arctan">Arctan</option>
+                        <option value="hyperbolic">Hyperbolic Tangent</option>
+                        <option value="sigmoid">Sigmoid</option>
+                        <option value="relu">ReLu</option>
+                    </select>
+                </div>
+
+                <hr>
+
+                <div>
                     *Population Size
                     <select id="pop-size">
                         <option value="15">15</option>
@@ -104,14 +121,6 @@
                         <option value="0.6">60%</option>
                         <option value="0.7">70%</option>
                     </select><br><br>
-                    **Activation
-                    <select id="activation-function">
-                        <option value="custom">Custom Tangent</option>
-                        <option value="arctan">Arctan</option>
-                        <option value="hyperbolic">Hyperbolic Tangent</option>
-                        <option value="sigmoid">Sigmoid</option>
-                        <option value="relu">ReLu</option>
-                    </select>
                 </div>
 
                 <hr>
@@ -141,7 +150,7 @@
                 <br><br>
                 Red bird is the best individual of the last generation. Yellow birds are other birds of the last generation. Blue birds are new-born birds.
                 <br><br>
-                Note: The changes of the "*" options will be effective only after the current generation is over; The changes of the "**" operations will be effective only for new-born birds.
+                Note: The changes of the "*" options will be effective only after the current generation is over; The changes of the "**" options will be effective only for new-born birds.
 
             </div>
 

@@ -1,5 +1,6 @@
 function Bird() {
     this.network = new Network();
+    this.seeTwoPipe = dashboard.seeTwoPipe; // Foresee the next coming two pipes instead of one
     this.init();
 }
 
@@ -19,7 +20,7 @@ Bird.prototype = {
             this.fitness++;
             if (this.network.getOutput(
                 pipeDis / Data.animation.SCREEN_WIDTH, (this.y - pipeUpper) / Data.animation.SCREEN_HEIGHT,
-                (this.y - pipe2Upper) / Data.animation.SCREEN_HEIGHT
+                this.seeTwoPipe ? (this.y - pipe2Upper) / Data.animation.SCREEN_HEIGHT : 0
             )) {
                 this.speed = -Data.game.FLY_SPEED;
             }
